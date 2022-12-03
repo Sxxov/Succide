@@ -27,7 +27,7 @@ namespace Succide.Core.Things.Interacting
 
 			fireController =
 				PlayerController.player!.GetComponent<PlayerFireController>()!;
-			fireController.OnFire += OnFire;
+			fireController.OnFiring += OnFiring;
 			fireController.OnCease += OnCease;
 			canInteract = !fireController.isFiring.value;
 		}
@@ -39,7 +39,7 @@ namespace Succide.Core.Things.Interacting
 			intersectableBehaviour.OnIntersect -= OnIntersect;
 			intersectableBehaviour.OnOutersect -= OnOutersect;
 
-			fireController.OnFire -= OnFire;
+			fireController.OnFiring -= OnFiring;
 			fireController.OnCease -= OnCease;
 		}
 
@@ -59,7 +59,7 @@ namespace Succide.Core.Things.Interacting
 
 		private void OnOutersect() => DeactivateHintChildren();
 
-		private void OnFire()
+		private void OnFiring()
 		{
 			if (!canInteract)
 			{
