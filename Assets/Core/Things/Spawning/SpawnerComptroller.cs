@@ -40,6 +40,7 @@ namespace Succide.Core.Things.Spawning
 
 		void OnDestroy()
 		{
+			StopCoroutine(ticker);
 			ticker.OnTick -= OnTick;
 		}
 

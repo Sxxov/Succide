@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 185d884509c5d8b4dbe9c0e45d49a72f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjectToSpawn: {fileID: 1595376346374469982, guid: 21e970688ac1c8f46814bf0b3341b1fe, type: 3}
+  gameObjectToSpawn: {fileID: 2325171821870537758, guid: 8695e1db75a123e48bcc043046880ea4, type: 3}
 --- !u!114 &2043341480647675405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 6804183738399757676}
   - component: {fileID: 6804183738399757715}
   - component: {fileID: 6804183738399757714}
+  - component: {fileID: 742980599635153592}
   m_Layer: 0
   m_Name: Keyboard, Key
   m_TagString: Untagged
@@ -378,7 +379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.4117647}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.4117647}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -545,6 +546,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1c058fc3e418146857da3e24147d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &742980599635153592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4517295000931559048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b1c1d45c27bec45b49f1f6041760ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: fb011d3c1f68b7d4abc95fd319f051b5, type: 3}
+  shouldPlayAtWorldZero: 0
 --- !u!1 &5156523708857465227
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,8 +636,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -693,3 +708,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90dc9817276a746449a0f5da7f7f1799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActiveStateInverted: 0

@@ -36,6 +36,12 @@ namespace Succide.Core.Player.Measuring
 					min: 0,
 					max: float.PositiveInfinity
 				),
+				new PlayerMeasurable(
+					kind: PlayerMeasurableKinds.MoodGrossGain,
+					initial: 0,
+					min: 0,
+					max: float.PositiveInfinity
+				),
 			};
 
 		public static PlayerMeasurable Get(PlayerMeasurableKinds kind) =>

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using Succide.Core.Common;
 
 namespace Succide.Core.Player
 {
@@ -19,6 +20,9 @@ namespace Succide.Core.Player
 		private const float jumpAmplitudeGround = 12f;
 		private const float crouchAmplitude = 2f;
 
+		public event Action? OnJump;
+		public event Action? OnLand;
+
 		private PlayerInput input = null!;
 		private Rigidbody2D rigidBody = null!;
 		private readonly List<GameObject> contactingGroundObjects = new();
@@ -26,15 +30,10 @@ namespace Succide.Core.Player
 		private bool isDoubleJumpable = false;
 		private InputAction.CallbackContext? inputCtx;
 
-		public bool isOnGround
-		{
-			get => contactingGroundObjects.Count > 0;
-		}
+		public Store<bool> isOnGround = new(true);
 
-		public bool isOnWall
-		{
-			get => contactingWallObjects.Count > 0;
-		}
+		public Store<bool> isOnWall = new(false);
+		public Store<bool> isJumping = new(false);
 
 		public float horizontalAxis =>
 			ZeroableSign(inputCtx?.ReadValue<Vector2>().x ?? 0);
@@ -76,7 +75,7 @@ namespace Succide.Core.Player
 				hasJumped = false;
 			}
 
-			if (isOnGround)
+			if (isOnGround.value)
 			{
 				isDoubleJumpable = true;
 			}
@@ -85,7 +84,7 @@ namespace Succide.Core.Player
 			{
 				if (canJump)
 				{
-					if (isOnGround)
+					if (isOnGround.value)
 					{
 						Jump();
 					}
@@ -114,6 +113,9 @@ namespace Succide.Core.Player
 			canJump = false;
 			hasJumped = false;
 			isDoubleJumpable = false;
+			isOnGround.value = true;
+			isOnWall.value = false;
+			isJumping.value = false;
 		}
 
 		private void Walk()
@@ -126,7 +128,7 @@ namespace Succide.Core.Player
 
 			rigidBody.velocity = new Vector2(
 				Mathf.Clamp(
-					isOnGround
+					isOnGround.value
 					&& rigidBody.velocity.x > 0
 					&& horizontalAxis != Mathf.Sign(rigidBody.velocity.x)
 						? // make switching direction when walking immediate
@@ -135,9 +137,9 @@ namespace Succide.Core.Player
 						horizontalAxis
 							* (1 + Time.deltaTime - 1 / 60)
 							* (
-								isOnWall
+								isOnWall.value
 									? walkAmplitudeWall
-									: isOnGround
+									: isOnGround.value
 										? walkAmplitudeGround
 										: walkAmplitudeAir
 							)
@@ -153,7 +155,11 @@ namespace Succide.Core.Player
 		{
 			var clamped = Mathf.Clamp(
 				rigidBody.velocity.y
-					+ (isOnGround ? jumpAmplitudeGround : jumpAmplitudeAir),
+					+ (
+						isOnGround.value
+							? jumpAmplitudeGround
+							: jumpAmplitudeAir
+					),
 				-jumpAmplitudeMax,
 				jumpAmplitudeMax
 			);
@@ -166,6 +172,9 @@ namespace Succide.Core.Player
 						? Math.Max(clamped, rigidBody.velocity.y)
 						: Math.Min(clamped, rigidBody.velocity.y)
 			);
+
+			isJumping.value = true;
+			OnJump?.Invoke();
 		}
 
 		private void Crouch()
@@ -182,23 +191,42 @@ namespace Succide.Core.Player
 				)
 			)
 			{
-				if (!isOnGround && canJump && hasJumped)
+				if (!isOnGround.value && canJump && hasJumped)
 				{
 					hasJumped = false;
 				}
 
 				contactingGroundObjects.Add(collision.gameObject);
+				isOnGround.value = true;
+
+				if (isJumping.value)
+				{
+					isJumping.value = false;
+					OnLand?.Invoke();
+				}
 			}
 			else
 			{
 				contactingWallObjects.Add(collision.gameObject);
+				isOnWall.value = true;
 			}
 		}
 
 		void OnCollisionExit2D(Collision2D collision)
 		{
 			contactingGroundObjects.Remove(collision.gameObject);
+
+			if (contactingGroundObjects.Count <= 0)
+			{
+				isOnGround.value = false;
+			}
+
 			contactingWallObjects.Remove(collision.gameObject);
+
+			if (contactingWallObjects.Count <= 0)
+			{
+				isOnWall.value = false;
+			}
 		}
 
 		private void OnInputStarted(InputAction.CallbackContext ctx) =>

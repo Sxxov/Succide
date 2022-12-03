@@ -91,7 +91,7 @@ namespace Succide.Core.Things.Interacting
 				)
 			)
 			{
-				hint.gameObject.SetActive(true);
+				hint.gameObject.SetActive(!hint.isActiveStateInverted);
 			}
 		}
 
@@ -103,7 +103,7 @@ namespace Succide.Core.Things.Interacting
 				)
 			)
 			{
-				hint.gameObject.SetActive(false);
+				hint.gameObject.SetActive(hint.isActiveStateInverted);
 			}
 		}
 	}

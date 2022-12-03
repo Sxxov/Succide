@@ -36,18 +36,23 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Core\Things\Branch\TimeSynchedAnimatorController.cs" />
      <Compile Include="Assets\Core\Routing\RouteKinds.cs" />
+     <Compile Include="Assets\Core\Things\Tutorial\TutorialController.cs" />
      <Compile Include="Assets\Core\Things\Common\DamageableController.cs" />
      <Compile Include="Assets\Core\Behavioural\MaximiseBoxColliderToRectTransformBehaviour.cs" />
+     <Compile Include="Assets\Core\Things\Common\TextFlashController.cs" />
      <Compile Include="Assets\Core\Routing\RouteProvider.cs" />
      <Compile Include="Assets\Core\Behavioural\ProjectileBehaviour.cs" />
      <Compile Include="Assets\Core\Player\GunController.cs" />
      <Compile Include="Assets\Core\Behavioural\SelfDestructOnCollideBehaviour.cs" />
      <Compile Include="Assets\Core\Things\Fun\BalloonController.cs" />
      <Compile Include="Assets\Core\Things\Interacting\InteractableHintController.cs" />
+     <Compile Include="Assets\Core\Player\PlayerAudioController.cs" />
      <Compile Include="Assets\Core\Animation\Aniwaitor.cs" />
      <Compile Include="Assets\Core\Exceptions\MissingComponentInChildrenException.cs" />
      <Compile Include="Assets\Core\Player\Measuring\PlayerMeasurableProvider.cs" />
+     <Compile Include="Assets\Core\Ui\MeasurableTimeTextController.cs" />
      <Compile Include="Assets\Core\Things\Pharmacy\PainkillerController.cs" />
      <Compile Include="Assets\Core\Behavioural\SingletonBehaviour.cs" />
      <Compile Include="Assets\Core\Ui\MeasurableBehaviour.cs" />
@@ -61,6 +66,7 @@
      <Compile Include="Assets\Core\Common\Store.cs" />
      <Compile Include="Assets\Core\Things\VirtualCameraManager.cs" />
      <Compile Include="Assets\Core\Things\Spawning\SpawnerAnchorBehaviour.cs" />
+     <Compile Include="Assets\Core\Things\Interacting\AudioOnInteractBehaviour.cs" />
      <Compile Include="Assets\Core\Things\Sleep\SleepController.cs" />
      <Compile Include="Assets\Core\Things\Work\DayWealthHintController.cs" />
      <Compile Include="Assets\Core\Player\PlayerFireController.cs" />
@@ -73,6 +79,7 @@
      <Compile Include="Assets\Core\Behavioural\SelfDestructBehaviour.cs" />
      <Compile Include="Assets\Core\Extensions\MonoBehaviour.cs" />
      <Compile Include="Assets\Core\Player\Measuring\PlayerMeasurable.cs" />
+     <Compile Include="Assets\Core\Behavioural\AudioOnSelfDestructBehaviour.cs" />
      <Compile Include="Assets\Core\Ui\MeasurableSeekbarController.cs" />
      <Compile Include="Assets\Core\Ui\MeasurablePercentTextController.cs" />
      <Compile Include="Assets\Core\Player\PlayerAnimationController.cs" />
@@ -103,9 +110,11 @@
      <Compile Include="Assets\Core\Things\CoinController.cs" />
      <Compile Include="Assets\Core\Common\Asyncify.cs" />
      <Compile Include="Assets\Core\Behavioural\MaximiseRectTransformToParentBehaviour.cs" />
+     <Compile Include="Assets\Core\Things\Common\BopController.cs" />
      <Compile Include="Assets\Core\Things\Common\ElasticityController.cs" />
      <Compile Include="Assets\Core\Player\Measuring\MeasurableTransformer.cs" />
-     <Compile Include="Assets\Core\Ui\MeasurableTimeTextController.cs" />
+     <Compile Include="Assets\Core\Things\Death\ScoreController.cs" />
+     <Compile Include="Assets\Core\Things\Death\ResultController.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -834,17 +843,17 @@
       <Project>{e0ae2871-781e-d336-ec7e-7da76ff73607}</Project>
       <Name>UnityEditor.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.PlasticSCM.Editor.csproj">
-      <Project>{4c09ec7f-0bd9-9ddf-c497-3f9d11a7000b}</Project>
-      <Name>Unity.PlasticSCM.Editor</Name>
+    <ProjectReference Include="Unity.InputSystem.csproj">
+      <Project>{2efbafad-3a2b-53a9-7d6b-060d1ffa366d}</Project>
+      <Name>Unity.InputSystem</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Rider.Editor.csproj">
       <Project>{543eceaf-1770-8d69-7b69-69fbb6052eff}</Project>
       <Name>Unity.Rider.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.2D.Psdimporter.Editor.csproj">
-      <Project>{189999a7-5ed9-91fb-a495-bdeed7f0524b}</Project>
-      <Name>Unity.2D.Psdimporter.Editor</Name>
+    <ProjectReference Include="Unity.PlasticSCM.Editor.csproj">
+      <Project>{4c09ec7f-0bd9-9ddf-c497-3f9d11a7000b}</Project>
+      <Name>Unity.PlasticSCM.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
       <Project>{f0222a3b-0c2e-6d72-3631-b54b6e5ca88e}</Project>
@@ -854,9 +863,9 @@
       <Project>{d69c4ffc-2459-2a78-ac35-3a080309251e}</Project>
       <Name>Unity.2D.Tilemap.Extras.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.InternalAPIEditorBridge.001.csproj">
-      <Project>{50188ba9-1272-afbd-eb70-b610b6785770}</Project>
-      <Name>Unity.InternalAPIEditorBridge.001</Name>
+    <ProjectReference Include="Unity.2D.Psdimporter.Editor.csproj">
+      <Project>{189999a7-5ed9-91fb-a495-bdeed7f0524b}</Project>
+      <Name>Unity.2D.Psdimporter.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Services.Core.csproj">
       <Project>{7bdc3b14-48ad-fcab-87bd-ea9e028084b8}</Project>
@@ -902,6 +911,10 @@
       <Project>{e11ff8f3-fdba-6005-d2fe-c14b1099500b}</Project>
       <Name>Unity.Timeline.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.InternalAPIEditorBridge.001.csproj">
+      <Project>{50188ba9-1272-afbd-eb70-b610b6785770}</Project>
+      <Name>Unity.InternalAPIEditorBridge.001</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.Mathematics.Editor.csproj">
       <Project>{782ad7cc-5eaa-6ed4-1795-1a27bf601439}</Project>
       <Name>Unity.Mathematics.Editor</Name>
@@ -925,10 +938,6 @@
     <ProjectReference Include="Unity.VisualScripting.State.csproj">
       <Project>{a7925ccc-a945-a77d-1a65-ffc1429b0d72}</Project>
       <Name>Unity.VisualScripting.State</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.InputSystem.csproj">
-      <Project>{2efbafad-3a2b-53a9-7d6b-060d1ffa366d}</Project>
-      <Name>Unity.InputSystem</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

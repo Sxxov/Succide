@@ -22,11 +22,32 @@ namespace Succide.Core.Player
 			PlayerMeasurableKinds.Time
 		);
 
+		public readonly Measurable moodGrossGain = PlayerMeasurableProvider.Get(
+			PlayerMeasurableKinds.MoodGrossGain
+		);
+
 		async void Awake()
 		{
+			// wait until the player has finished intro
 			await RouteComptroller.instance!.AwaitAway(RouteKinds.Intro);
 
+			// track time
 			time.transformer += (v) => v + Measurable.ToPerTick(1);
+
+			// track moodGrossGain
+			mood.OnChanging += (v) =>
+				moodGrossGain.value += Mathf.Max(v - mood.value, 0);
+
+			// if health is <= 0, go to death route
+			var hasDied = false;
+			health.OnChanged += async (v) =>
+			{
+				if (!hasDied && v <= 0 && RouteComptroller.instance)
+				{
+					hasDied = true;
+					await RouteComptroller.instance.Goto(RouteKinds.Death);
+				}
+			};
 
 			// ambient withering
 			mood.transformer += (v) => v - Measurable.ToPerTick(.5f);
@@ -64,6 +85,21 @@ namespace Succide.Core.Player
 			StartCoroutine(mood);
 			StartCoroutine(wealth);
 			StartCoroutine(health);
+		}
+
+		void OnDestroy()
+		{
+			StopCoroutine(time);
+			StopCoroutine(mood);
+			StopCoroutine(wealth);
+			StopCoroutine(health);
+
+			// reset all measurables to their initial values
+			mood.Reset();
+			wealth.Reset();
+			health.Reset();
+			time.Reset();
+			moodGrossGain.Reset();
 		}
 	}
 }

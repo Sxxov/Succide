@@ -9,7 +9,8 @@ namespace Succide.Core.Player
 	[RequireComponent(typeof(PlayerInput))]
 	public class PlayerFireController : MonoBehaviour
 	{
-		private const float fireCooldownTime = .1f;
+		private const float firesPerSecond = 10;
+		private const float fireMinCooldown = 1 / firesPerSecond;
 
 		public event Action? OnFire;
 		public event Action? OnFiring;
@@ -19,7 +20,8 @@ namespace Succide.Core.Player
 		public Store<bool> isFiring = new();
 
 		private PlayerInput input = null!;
-		private float prevFireTime = 0;
+		private Ticker? ticker;
+		private float prevTickerStartTime = float.MinValue;
 
 		void Awake()
 		{
@@ -43,20 +45,60 @@ namespace Succide.Core.Player
 			if (v)
 			{
 				OnFiring?.Invoke();
+
+				var currTime = Time.time;
+
+				if (currTime - prevTickerStartTime >= fireMinCooldown)
+				{
+					prevTickerStartTime = currTime;
+					OnFire?.Invoke();
+
+					if (ticker is null)
+					{
+						ticker = new(firesPerSecond);
+						ticker.OnTick += OnFire;
+						StartCoroutine(ticker);
+					}
+				}
 			}
 			else
 			{
 				OnCease?.Invoke();
+
+				if (ticker is not null)
+				{
+					ticker.OnTick -= OnFire;
+					StopCoroutine(ticker);
+					ticker = null;
+				}
 			}
 		}
 
-		void Update()
+		public void FireOnce()
 		{
-			if (isFiring.value && Time.time - prevFireTime >= fireCooldownTime)
+			var wasFiring = isFiring.value;
+
+			if (!wasFiring)
 			{
-				prevFireTime = Time.time;
-				OnFire?.Invoke();
+				isFiring.value = true;
 			}
+
+			OnFire?.Invoke();
+
+			if (!wasFiring)
+			{
+				isFiring.value = false;
+			}
+		}
+
+		public void FireContinuously()
+		{
+			isFiring.value = true;
+		}
+
+		public void Cease()
+		{
+			isFiring.value = false;
 		}
 
 		public Task AwaitCease() =>
@@ -70,12 +112,12 @@ namespace Succide.Core.Player
 
 		private void OnFireInputStarted(InputAction.CallbackContext ctx)
 		{
-			isFiring.value = true;
+			FireContinuously();
 		}
 
 		private void OnFireInputCanceled(InputAction.CallbackContext ctx)
 		{
-			isFiring.value = false;
+			Cease();
 		}
 	}
 }

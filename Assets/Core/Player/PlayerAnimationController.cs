@@ -11,8 +11,8 @@ namespace Succide.Core.Player
 		private PlayerFireController fireController = null!;
 		private Animator anim = null!;
 
-		private bool isOnGround => movementController!.isOnGround;
-		private bool isOnWall => movementController!.isOnWall;
+		private bool isOnGround => movementController!.isOnGround.value;
+		private bool isOnWall => movementController!.isOnWall.value;
 		private bool isFiring => fireController!.isFiring.value;
 		private float horizontalAxis => movementController!.horizontalAxis;
 		private float verticalAxis => movementController!.verticalAxis;
@@ -33,18 +33,18 @@ namespace Succide.Core.Player
 					if (isFiring)
 					{
 						// idling firing
-						anim!.Play("Character, Shoot, Left");
+						anim!.Play("Jump, Left");
 					}
 					else
 					{
 						// idling
-						anim!.Play("Character, Idle");
+						anim!.Play("Idle, Bop");
 					}
 				}
 				else
 				{
 					// walking
-					anim!.Play("Character, Walk, Left");
+					anim!.Play("Walk, Left");
 				}
 			}
 			else
@@ -54,17 +54,17 @@ namespace Succide.Core.Player
 					if (isFiring)
 					{
 						// fly crouching firing
-						anim!.Play("Character, Shoot, Left");
+						anim!.Play("Jump, Left");
 					}
 					else
 					{ // fly crouching
-						anim!.Play("Character, Idle");
+						anim!.Play("Crouch");
 					}
 				}
 				else
 				{
 					// jumping
-					anim!.Play("Character, Jump, Left");
+					anim!.Play("Jump, Left");
 				}
 			}
 		}

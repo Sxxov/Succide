@@ -147,10 +147,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2006733112}
     m_Modifications:
+    - target: {fileID: 591835801558077517, guid: 5d369761a43b75042a6443c6aaa00ec8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3b446530dcf69064cb1300eaf2b00743, type: 3}
     - target: {fileID: 5162332847618418283, guid: 5d369761a43b75042a6443c6aaa00ec8, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 5783409807639174665, guid: 5d369761a43b75042a6443c6aaa00ec8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 253a4a3704f3c664e8e5a929e60dd154, type: 3}
+    - target: {fileID: 5783409808923601443, guid: 5d369761a43b75042a6443c6aaa00ec8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 749e3c030909f3445b2e7eb08d0c5328, type: 3}
     - target: {fileID: 6806244818530571494, guid: 5d369761a43b75042a6443c6aaa00ec8, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 1

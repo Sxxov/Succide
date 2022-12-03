@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PharmacyScene.unity
     guid: e28fd398143abe6449391024e319f0d5
+  - enabled: 1
+    path: Assets/Scenes/DeathScene.unity
+    guid: 316fe5cde3086d244a163b7a47586672
   m_configObjects: {}

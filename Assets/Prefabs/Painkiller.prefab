@@ -13,6 +13,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6804183738399757676, guid: f1b1e0f32b0405843965481e9c214d0a, type: 3}
       propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6804183738399757713, guid: f1b1e0f32b0405843965481e9c214d0a, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6804183738399757713, guid: f1b1e0f32b0405843965481e9c214d0a, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6804183738399757713, guid: f1b1e0f32b0405843965481e9c214d0a, type: 3}
+      propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7366131994723838935, guid: f1b1e0f32b0405843965481e9c214d0a, type: 3}
@@ -101,7 +113,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8379988864084869134, guid: f1b1e0f32b0405843965481e9c214d0a, type: 3}
       propertyPath: m_text
-      value: (') Consume
+      value: (') Consume Painkiller
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379988864084869134, guid: f1b1e0f32b0405843965481e9c214d0a, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379988864084869134, guid: f1b1e0f32b0405843965481e9c214d0a, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379988864084869134, guid: f1b1e0f32b0405843965481e9c214d0a, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379988864084869134, guid: f1b1e0f32b0405843965481e9c214d0a, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8926158687272824603, guid: f1b1e0f32b0405843965481e9c214d0a, type: 3}
       propertyPath: m_AnchoredPosition.y

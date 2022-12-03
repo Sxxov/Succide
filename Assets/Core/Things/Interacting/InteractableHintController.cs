@@ -7,6 +7,8 @@ namespace Succide.Core.Things.Interacting
 	[RequireComponent(typeof(TMPro.TextMeshProUGUI))]
 	public class InteractableHintController : MonoBehaviour
 	{
+		public bool isActiveStateInverted = false;
+
 		private InteractableComptroller interactableComptroller = null!;
 		private TMPro.TextMeshProUGUI text = null!;
 

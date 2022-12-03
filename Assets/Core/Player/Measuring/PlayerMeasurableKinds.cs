@@ -6,5 +6,6 @@ namespace Succide.Core.Player.Measuring
 		Wealth,
 		Health,
 		Time,
+		MoodGrossGain,
 	}
 }

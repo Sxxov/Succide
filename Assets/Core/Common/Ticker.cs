@@ -1,35 +1,42 @@
 using System;
 using System.Collections;
+using UnityEngine;
 
 namespace Succide.Core.Common
 {
 	public class Ticker : IEnumerator
 	{
-		private readonly float ticksPerSecond;
+		private readonly double ticksPerSecond_;
+		private double ticksPerSecond => ticksPerSecond_ * Time.timeScale;
 		public event Action? OnTick;
-		private long prevTime = long.MinValue;
+		private double prevTime = double.MinValue;
 
-		public Ticker(float ticksPerSecond)
+		public Ticker(double ticksPerSecond)
 		{
-			this.ticksPerSecond = ticksPerSecond;
+			ticksPerSecond_ = ticksPerSecond;
 		}
 
 		public bool MoveNext()
 		{
-			var currTime =
-				DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond / 1000;
+			var currTime = (double)Time.time;
 
-			if (prevTime == long.MinValue)
+			if (prevTime == double.MinValue)
 			{
 				prevTime = currTime;
+			}
+
+			if (ticksPerSecond == 0)
+			{
+				prevTime = currTime;
+
+				return true;
 			}
 
 			var timeDelta = currTime - prevTime;
 			var rawTickCount = timeDelta * ticksPerSecond;
 			var handledTickCount = (int)rawTickCount;
 			var remainingTickCount = rawTickCount - handledTickCount;
-			var nextTime =
-				currTime - (long)(remainingTickCount / ticksPerSecond);
+			var nextTime = currTime - (remainingTickCount / ticksPerSecond);
 
 			for (var i = 0; i < handledTickCount; ++i)
 			{
@@ -43,7 +50,7 @@ namespace Succide.Core.Common
 
 		public void Reset()
 		{
-			prevTime = long.MinValue;
+			prevTime = double.MinValue;
 		}
 
 		object? IEnumerator.Current => Current;
@@ -52,14 +59,8 @@ namespace Succide.Core.Common
 		public object? Current => null;
 #pragma warning restore
 
-		public float ToPerTick(float perSecond)
-		{
-			return perSecond / ticksPerSecond;
-		}
+		public double ToPerTick(double perSecond) => perSecond / ticksPerSecond;
 
-		public float ToPerSecond(float perTick)
-		{
-			return perTick * ticksPerSecond;
-		}
+		public double ToPerSecond(double perTick) => perTick * ticksPerSecond;
 	}
 }

@@ -33,8 +33,8 @@ namespace Succide.Core.Player.Measuring
 
 		public void Reset()
 		{
+			Reset(initial);
 			ticker.Reset();
-			value = initial;
 			transformer = null;
 		}
 

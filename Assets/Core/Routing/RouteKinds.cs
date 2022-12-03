@@ -10,5 +10,6 @@ namespace Succide.Core.Routing
 		Fun,
 		Sleep,
 		Pharmacy,
+		Death,
 	}
 }

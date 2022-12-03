@@ -38,6 +38,11 @@ namespace Succide.Core.Routing
 				sceneName: "PharmacyScene",
 				shouldShowMeasurables: true
 			),
+			new Route(
+				kind: RouteKinds.Death,
+				sceneName: "DeathScene",
+				shouldShowMeasurables: false
+			),
 		};
 
 		public static Route Get(RouteKinds kind) =>
