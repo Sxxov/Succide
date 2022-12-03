@@ -13,7 +13,6 @@ namespace Succide.Core.Things.Interacting
 		public readonly Store<bool> isInteracting = new();
 		private IntersectableBehaviour intersectableBehaviour = null!;
 		private PlayerFireController fireController = null!;
-		private bool canInteract;
 
 		void Awake()
 		{
@@ -29,7 +28,6 @@ namespace Succide.Core.Things.Interacting
 				PlayerController.player!.GetComponent<PlayerFireController>()!;
 			fireController.OnFiring += OnFiring;
 			fireController.OnCease += OnCease;
-			canInteract = !fireController.isFiring.value;
 		}
 
 		void OnDestroy()
@@ -61,25 +59,17 @@ namespace Succide.Core.Things.Interacting
 
 		private void OnFiring()
 		{
-			if (!canInteract)
+			// explicitly disable interaction when game is paused
+			if (Time.timeScale == 0)
 			{
 				return;
 			}
 
-			if (intersectableBehaviour.isIntersecting.value)
-			{
-				isInteracting.value = true;
-			}
-			else
-			{
-				canInteract = false;
-				isInteracting.value = false;
-			}
+			isInteracting.value = intersectableBehaviour.isIntersecting.value;
 		}
 
 		private void OnCease()
 		{
-			canInteract = true;
 			isInteracting.value = false;
 		}
 
